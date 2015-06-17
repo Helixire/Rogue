@@ -17,17 +17,6 @@
 
 # define SIZE	1024
 
-# define WHITE	"\033[37m"
-# define RED	"\033[31m"
-# define BLUE	"\033[34m"
-# define NORM	"\033[00m"
-
-
-# define BGGREEN	"\033[42m"
-# define SLAIN		" is dead].\n"
-# define ATTACK		" as attacked of "
-# define HP		" hp now."
-
 typedef struct s_unit t_unit;
 
 int	add_unit(t_unit **list, const int data[4]);
@@ -48,8 +37,6 @@ int	free_grid(int **grid);
 int	free_tab(char **tab);
 void	my_putname(char *str);
 t_unit	*find_unit_at(t_unit *unit, const int x, const int y);
-void	int_to_str(int nb, char str[]);
-void	my_revstr(char *str);
 void	print_str(SDL_Surface *screen, char *str, SDL_Color, SDL_Rect *pos);
 int	is_in(const int nb, const int *list);
 

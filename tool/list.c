@@ -19,11 +19,11 @@ int		add_unit(t_unit **list, const int data[4])
   if ((ret = malloc(sizeof(*ret))) == NULL)
     return (1);
   ret->type = data[0];
-  ret->faction = data[1];
-  ret->pos.x = data[2];
-  ret->pos.y = data[3];
-  ret->hp = g_type[data[0]].hp;
-  ret->move = g_type[data[0]].move;
+  ret->hp = data[1];
+  ret->pos.x = data[2] * TSIZE;
+  ret->pos.y = data[3] * TSIZE;
+  ret->vx = 0;
+  ret->vy = 0;
   ret->next = *list;
   *list = ret;
   return (0);

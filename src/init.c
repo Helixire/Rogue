@@ -109,11 +109,8 @@ int	init(char *file, int ***grid, t_unit **unit)
   int	y;
   char	*tmp;
 
-  if (!((fd = my_strlen(file)) > 4 && my_strcmp(file + fd - 4, ".map") == 0 &&
-      (fd = open(file, O_RDONLY)) != -1))
+  if (!((fd = my_strlen(file)) > 4 && (fd = open(file, O_RDONLY)) != -1))
     return (my_error(EO));
-  my_putstr(FE);
-  file[my_strlen(file) - 4] = 0;
   x = 0;
   y = 0;
   *grid = NULL;

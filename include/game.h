@@ -19,59 +19,40 @@
 
 # define TSIZE	32
 
-# define SIZEX	25
+# define SIZEX	26
 # define SIZEY	20
 
-# define BT	BLUE "\rBlue Turn                   \n" NORM
-# define RT	RED "\rRed Turn                     \n" NORM
-
-# define NONE	"NONE                                 "
-# define END	"\r--end--                          \n"
-
-typedef struct	s_node
-{
-  SDL_Rect	pos;
-  int		dist;
-  int		open;
-  struct s_node	*next;
-}		t_node;
+# define FPS	60
 
 struct		s_unit
 {
+  int		type;
   int		hp;
   SDL_Rect	pos;
-  int		move;
-  int		atk;
-  int		faction;
-  int		type;
+  int		vx;
+  int		vy;
   struct s_unit	*next;
 };
 
-typedef struct	s_type
+typedef struct	s_action
 {
-  char		name[25];
-  int		hp;
-  int		move;
-  int		range;
-  int		counter[10];
-  int		illegal[20];
-}		t_type;
+  char		inf[30];
+  int		active;
+  unsigned int	key;
+}		t_action;
+
+typedef struct	s_tiles
+{
+  int		solid;
+  void		(*effect)();
+}		t_tiles;
 
 extern TTF_Font		*g_font;
 extern SDL_Surface	*img[];
-extern int		g_turn;
-extern t_unit		*g_sel;
-extern FMOD_SYSTEM	*g_m;
-extern FMOD_SOUND	*sound[];
-extern const t_type	g_type[];
+extern t_action		g_key[];
+extern const t_tiles	g_tiles[];
 
-int		init(char *file, int ***grid, t_unit **unit);
-void		init_turn(t_unit *list, int *turn);
-int		loop_g(int **grid, t_unit **list);
-int		can_attack(t_unit *atk, t_unit *def);
-void		attack_g(t_unit *atk, t_unit *def, t_unit **);
-int		find_path(t_unit *unit, int **grid, t_node **res, t_unit *list);
-void		clean_node(t_node **node);
-t_node		*node_at(t_node *list, SDL_Rect *pos);
+int	init(char *file, int ***grid, t_unit **unit);
+void	loop(int **map, t_unit *unit);
 
 #endif /* !_GAME_H_ */
