@@ -5,7 +5,7 @@
 ** Login   <chau_b@epitech.net>
 ** 
 ** Started on  Tue Jun 23 16:52:31 2015 alexandre chau
-** Last update Tue Jun 23 18:52:29 2015 alexandre chau
+** Last update Tue Jun 23 19:23:14 2015 alexandre chau
 */
 
 #include "game.h"
@@ -48,10 +48,32 @@ int	cafe(int **map, int x, int y, int type)
     {
       cx = 0;
       while (++cx < 21)
-	map[y * 20 + (cy - 1)][x * 20 + (cx - 1)] = tmp[cy][cx];
+	map[y * 20 + (cy - 1) + 1][x * 20 + (cx - 1) + 1] = tmp[cy][cx];
     }
   free_grid(tmp);
   return (0);
+}
+
+int	**entoure_map(int **map)
+{
+  int	x;
+  int	y;
+
+  y = 0;
+  while (y < ((1 * 2) * 20 + 2))
+    {
+      x = 0;
+      while (x < ((1 * 2) * 20 + 2))
+	{
+	  if (y == 0 || y = 41)
+	    map[y][x] = 0;
+	  if (x == 0 || x = 41)
+	    map[y][x] = 0;
+	  x++;
+	}
+      y++;
+    }
+  return (map);
 }
 
 int	**make_map(int **map)
@@ -63,11 +85,11 @@ int	**make_map(int **map)
 
   i = 0;
   y = 0;
-  if (!(map_finale = malloc((((1 * 2) * 20) + 1) * sizeof(*map_finale))))
+  if (!(map_finale = malloc((((1 * 2) * 20) + 2) * sizeof(*map_finale))))
     return (NULL);
-  while (i < (((1 * 2) * 20) + 1))
+  while (i < (((1 * 2) * 20) + 2))
     {
-      if (!(map_finale[i] = malloc((((1 * 2) * 20) + 1) *
+      if (!(map_finale[i] = malloc((((1 * 2) * 20) + 2) *
 				   sizeof(**map_finale))))
 	return (NULL);
       i++;
@@ -83,7 +105,7 @@ int	**make_map(int **map)
 	}
       y++;
     }
-  return (map_finale);
+  return (entoure_map(map_finale));
 }
 
 
