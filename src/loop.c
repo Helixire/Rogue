@@ -70,6 +70,13 @@ void		update(int **map, t_unit *unit)
   SDL_Flip(img[0]);
 }
 
+int	tiles_at(const int x, const int y, int **grid)
+{
+  if (x < 0 || y < 0 || grid[y][x] == 0)
+    return (2);
+  return (grid[y][x]);
+}
+
 void	loop(int **map, t_unit *unit)
 {
   int		state;
@@ -106,6 +113,24 @@ void	loop(int **map, t_unit *unit)
 		}
 	    }
 	}
+      if (g_key[0].active && !g_key[2].active)
+	{
+	  if (unit->vy > 0)
+	    unit->vy *= 0.9;
+	  unit->vy -= 1;
+	}
+      else if (!g_key[0].active && g_key[2].active)
+	{
+	  if (unit->vy < 0)
+	    unit->vy *= 0.9;
+	  unit->vy += 1;
+	}
+      if (!g_key[0].active && !g_key[2].active)
+	unit->vy *= 0.9;
+      if ((ABS(unit->vy)) > 20)
+	unit->vy = (unit->vy > 0) ? 20 : -20;
+      unit->pos.y += unit->vy;
+      
       if (g_key[1].active && !g_key[3].active)
 	{
 	  if (unit->vx > 0)
@@ -123,6 +148,7 @@ void	loop(int **map, t_unit *unit)
       if ((ABS(unit->vx)) > 20)
 	unit->vx = (unit->vx > 0) ? 20 : -20;
       unit->pos.x += unit->vx;
+      printf("x:%d y:%d\n", ((unit->pos.x - TSIZE)/ TSIZE), (unit->pos.y - TSIZE) / TSIZE);
       update(map, unit);
       if ((ctime = SDL_GetTicks()) - ltime > 1000 / FPS)
 	ltime = ctime;
