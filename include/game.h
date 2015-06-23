@@ -54,5 +54,6 @@ extern const t_tiles	g_tiles[];
 
 int	init(char *file, int ***grid, t_unit **unit);
 void	loop(int **map, t_unit *unit);
+int	gener_map(int ***map, t_unit **unit);
 
 #endif /* !_GAME_H_ */

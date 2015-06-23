@@ -32,6 +32,7 @@ SRC	= src/main.c \
 	  src/init.c \
 	  src/global.c \
 	  src/loop.c \
+	  src/mapping/make_path.c \
 	  $(TOOL)
 
 OBJ	= $(SRC:.c=.o)

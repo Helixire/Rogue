@@ -14,12 +14,6 @@
 #include <SDL/SDL_ttf.h>
 #include "game.h"
 
-
-static int	gener_map(int ***map, t_unit **unit)
-{
-  return (init("map/start", map, unit) != 0);
-}
-
 static int	game(void)
 {
   int		**map;

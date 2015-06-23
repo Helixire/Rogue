@@ -8,6 +8,8 @@
 ** Last update Tue Jun 23 18:52:29 2015 alexandre chau
 */
 
+#include "game.h"
+/*
 int	path()
 {
   int	**map;
@@ -24,32 +26,13 @@ int	path()
     }
   map[i] = NULL;
 }
-
-void	gene_map(int ***map, t_unit **unit)
-{
-  int	mapp[3][3];
-  t_unit	*tmp;
-
-  tmp = malloc(sizeof(*tmp));
-  *unit = tmp;
-  tmp->type = 0;
-  tmp->hp = 3;
-  tmp->pos.x = 320;
-  tmp->pos.y = 320;
-  tmp->next = NULL;
-  mapp[0][0] = 1;
-  mapp[0][1] = 1;
-  mapp[0][2] = -1;
-  mapp[1][0] = 1;
-  mapp[1][1] = 1;
-  mapp[1][2] = -1;
-  mapp[2] = NULL;
-  *map = make_map(mapp);
-}
+*/
 
 int	gene_aleatoire(int type, int ***map)
 {
-  return (init("map/start", map, NULL));
+  t_unit	*osef;
+
+  return (init("map/start", map, &osef));
 }
 
 int	cafe(int **map, int x, int y, int type)
@@ -80,11 +63,11 @@ int	**make_map(int **map)
 
   i = 0;
   y = 0;
-  if (!(map_finale = malloc((((TAILLE_MIN * 2) * 20) + 1) * sizeof(*map_finale))))
+  if (!(map_finale = malloc((((1 * 2) * 20) + 1) * sizeof(*map_finale))))
     return (NULL);
-  while (i < (((TAILLE_MIN * 2) * 20) + 1))
+  while (i < (((1 * 2) * 20) + 1))
     {
-      if (!(map_finale[i] = malloc((((TAILLE_MIN * 2) * 20) + 1) *
+      if (!(map_finale[i] = malloc((((1 * 2) * 20) + 1) *
 				   sizeof(**map_finale))))
 	return (NULL);
       i++;
@@ -101,4 +84,31 @@ int	**make_map(int **map)
       y++;
     }
   return (map_finale);
+}
+
+
+int	gener_map(int ***map, t_unit **unit)
+{
+  int	**mapp;
+  t_unit	*tmp;
+
+  mapp = malloc(3 * sizeof(*mapp));
+  mapp[0] = malloc(3 * sizeof(**mapp));
+  mapp[1] = malloc(3 * sizeof(**mapp));
+  mapp[2] = NULL;
+  mapp[0][0] = 1;
+  mapp[0][1] = 1;
+  mapp[0][2] = -1;
+  mapp[1][0] = 1;
+  mapp[1][1] = 1;
+  mapp[1][2] = -1;
+  tmp = malloc(sizeof(*tmp));
+  *unit = tmp;
+  tmp->type = 0;
+  tmp->hp = 3;
+  tmp->pos.x = 320;
+  tmp->pos.y = 320;
+  tmp->next = NULL;
+  *map = make_map(mapp);
+  return (0);
 }
