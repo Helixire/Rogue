@@ -107,9 +107,21 @@ void	loop(int **map, t_unit *unit)
 	    }
 	}
       if (g_key[1].active && !g_key[3].active)
-	unit->vx -= 1;
+	{
+	  if (unit->vx > 0)
+	    unit->vx *= 0.9;
+	  unit->vx -= 1;
+	}
       else if (!g_key[1].active && g_key[3].active)
-	unit->vx += 1;
+	{
+	  if (unit->vx < 0)
+	    unit->vx *= 0.9;
+	  unit->vx += 1;
+	}
+      if (!g_key[1].active && !g_key[3].active)
+	unit->vx *= 0.9;
+      if ((ABS(unit->vx)) > 20)
+	unit->vx = (unit->vx > 0) ? 20 : -20;
       unit->pos.x += unit->vx;
       update(map, unit);
       if ((ctime = SDL_GetTicks()) - ltime > 1000 / FPS)
