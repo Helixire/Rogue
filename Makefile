@@ -14,7 +14,7 @@ RM	= rm -f
 
 NAME	= Rogue
 
-CFLAGS	+= -W -Wall -ansi -pedantic
+CFLAGS	+= -W -Wall -ansi -pedantic -g3
 CFLAGS	+= -I./include
 
 LDFLAGS	= -lSDL -lSDL_image -lSDL_ttf

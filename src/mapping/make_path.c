@@ -42,7 +42,7 @@ int	cafe(int **map, int x, int y, int type)
   int	**tmp;
 
   cy = 0;
-  if (!(gene_aleatoire(type, &tmp)))
+  if (gene_aleatoire(type, &tmp) != 0)
     return (-1);
   while (++cy < 21)
     {
@@ -65,9 +65,9 @@ int	**entoure_map(int **map)
       x = 0;
       while (x < ((1 * 2) * 20 + 2))
 	{
-	  if (y == 0 || y = 41)
+	  if (y == 0 || y == 41)
 	    map[y][x] = 0;
-	  if (x == 0 || x = 41)
+	  if (x == 0 || x == 41)
 	    map[y][x] = 0;
 	  x++;
 	}
@@ -76,22 +76,21 @@ int	**entoure_map(int **map)
   return (map);
 }
 
-int	**make_map(int **map)
+int	make_map(int **map, int ***map_finale)
 {
-  int	**map_finale;
   int	x;
   int	y;
   int	i;
 
   i = 0;
   y = 0;
-  if (!(map_finale = malloc((((1 * 2) * 20) + 2) * sizeof(*map_finale))))
-    return (NULL);
+  if (!(*map_finale = malloc((((1 * 2) * 20) + 2) * sizeof(*map_finale))))
+    return (1);
   while (i < (((1 * 2) * 20) + 2))
     {
-      if (!(map_finale[i] = malloc((((1 * 2) * 20) + 2) *
-				   sizeof(**map_finale))))
-	return (NULL);
+      if (!((*map_finale)[i] = malloc((((1 * 2) * 20) + 2) *
+				      sizeof(**map_finale))))
+	return (1);
       i++;
     }
   while (map[y] != NULL)
@@ -99,15 +98,15 @@ int	**make_map(int **map)
       x = 0;
       while (map[y][x] != -1)
 	{
-	  if (cafe(map_finale, x, y, map[y][x]) == -1)
-	    return (NULL);
+	  if (cafe(*map_finale, x, y, map[y][x]) == -1)
+	    return (1);
 	  x++;
 	}
       y++;
     }
-  return (entoure_map(map_finale));
+  entoure_map(*map_finale);
+  return (0);
 }
-
 
 int	gener_map(int ***map, t_unit **unit)
 {
@@ -131,6 +130,6 @@ int	gener_map(int ***map, t_unit **unit)
   tmp->pos.x = 320;
   tmp->pos.y = 320;
   tmp->next = NULL;
-  *map = make_map(mapp);
+  make_map(mapp, map);
   return (0);
 }
