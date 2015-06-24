@@ -24,6 +24,9 @@ int		add_unit(t_unit **list, const int data[4])
   ret->pos.y = data[3] * TSIZE;
   ret->vx = 0;
   ret->vy = 0;
+  ret->jump = 0;
+  ret->dash = 0;
+  ret->canjump = 0;
   ret->next = *list;
   *list = ret;
   return (0);

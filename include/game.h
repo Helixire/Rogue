@@ -31,6 +31,10 @@ struct		s_unit
   SDL_Rect	pos;
   int		vx;
   int		vy;
+  int		canjump;
+  int		jump;
+  int		og;
+  int		dash;
   struct s_unit	*next;
 };
 

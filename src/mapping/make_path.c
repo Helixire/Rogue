@@ -28,21 +28,19 @@ int	path()
 }
 */
 
-int	gene_aleatoire(int type, int ***map)
+int	gene_aleatoire(int type, int ***map, t_unit **unit)
 {
-  t_unit	*osef;
-
-  return (init("map/start", map, &osef));
+  return (init("map/start", map, unit));
 }
 
-int	cafe(int **map, int x, int y, int type)
+int	cafe(int **map, int x, int y, int type, t_unit **unit)
 {
   int	cy;
   int	cx;
   int	**tmp;
 
   cy = 0;
-  if (gene_aleatoire(type, &tmp) != 0)
+  if (gene_aleatoire(type, &tmp, unit) != 0)
     return (-1);
   while (++cy < 21)
     {
@@ -76,7 +74,7 @@ int	**entoure_map(int **map)
   return (map);
 }
 
-int	make_map(int **map, int ***map_finale)
+int	make_map(int **map, int ***map_finale, t_unit **unit)
 {
   int	x;
   int	y;
@@ -98,7 +96,7 @@ int	make_map(int **map, int ***map_finale)
       x = 0;
       while (map[y][x] != -1)
 	{
-	  if (cafe(*map_finale, x, y, map[y][x]) == -1)
+	  if (cafe(*map_finale, x, y, map[y][x], unit) == -1)
 	    return (1);
 	  x++;
 	}
@@ -111,7 +109,6 @@ int	make_map(int **map, int ***map_finale)
 int	gener_map(int ***map, t_unit **unit)
 {
   int	**mapp;
-  t_unit	*tmp;
 
   mapp = malloc(3 * sizeof(*mapp));
   mapp[0] = malloc(3 * sizeof(**mapp));
@@ -123,13 +120,6 @@ int	gener_map(int ***map, t_unit **unit)
   mapp[1][0] = 1;
   mapp[1][1] = 1;
   mapp[1][2] = -1;
-  tmp = malloc(sizeof(*tmp));
-  *unit = tmp;
-  tmp->type = 0;
-  tmp->hp = 3;
-  tmp->pos.x = 320;
-  tmp->pos.y = 320;
-  tmp->next = NULL;
-  make_map(mapp, map);
+  make_map(mapp, map, unit);
   return (0);
 }
